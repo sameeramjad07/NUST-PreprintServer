@@ -10,8 +10,10 @@ const Appbar = () => {
       <div className="container mx-auto py-4 flex justify-between items-center px-4">
         {/* University Logo and Name */}
         <div className="flex items-center">
-          <img src={nustLogo} alt="University Logo" className="h-10 w-10 mr-2 rounded-full" />
-          <span className="text-white text-lg font-poppins">National University of Sciences and Technology</span>
+            <a href="https://nust.edu.pk/" className='flex items-center'>
+            <img src={nustLogo} alt="University Logo" className="h-10 w-10 mr-2 rounded-full" />
+            <span className="text-white text-lg font-poppins">National University of Sciences and Technology</span>
+            </a>
         </div>
         {/* Social Media Icons or Other Links */}
         <div className="flex space-x-4">
