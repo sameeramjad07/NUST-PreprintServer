@@ -25,10 +25,10 @@ const Appbar = () => {
       {/* Top Navbar */}
       <div className="container mx-auto py-4 flex justify-between items-center px-4">
         {/* University Logo and Name */}
-        <a href="https://nust.edu.pk/">
+        <a href="/">
             <div className="flex items-center justify-center md:justify-start">
-            <img src={nustLogo} alt="University Logo" className="h-10 w-10 md:h-12 md:w-12 mr-2 rounded-full md:rounded-none" />
-            <span className="text-white text-lg font-semibold md:block hidden">National University of Sciences and Technology</span>
+              <img src={nustLogo} alt="University Logo" className="h-10 w-10 md:h-12 md:w-12 mr-2 rounded-full md:rounded-none" />
+              <span className="text-white text-lg font-semibold md:block hidden">National University of Sciences and Technology</span>
             </div>
         </a>
         {/* Hamburger Menu for Mobile */}
@@ -41,10 +41,12 @@ const Appbar = () => {
         </div>
         {/* Social Media Icons or Other Links */}
         <div className="hidden md:flex space-x-4">
-            <a href="https://www.facebook.com/nustofficial/" className="text-gray-300 hover:text-white transition duration-300 ease-in-out">Facebook</a>
-            <a href="https://twitter.com/officialnust" className="text-gray-300 hover:text-white transition duration-300 ease-in-out">Twitter</a>
-            <a href="https://www.linkedin.com/school/nustofficial/" className="text-gray-300 hover:text-white transition duration-300 ease-in-out">LinkedIn</a>        </div>
+            <a href="https://www.facebook.com/ResearchNUST" className="text-gray-300 hover:text-white transition duration-300 ease-in-out">Facebook</a>
+            <a href="https://twitter.com/Research_NUST" className="text-gray-300 hover:text-white transition duration-300 ease-in-out">Twitter</a>
+            <a href="https://www.linkedin.com/company/research-nust/" className="text-gray-300 hover:text-white transition duration-300 ease-in-out">LinkedIn</a> 
+            <a href="https://www.youtube.com/@Research_NUST" className="text-gray-300 hover:text-white transition duration-300 ease-in-out">Youtube</a>        
         </div>
+      </div>
       {/* Bottom Navbar */}
       <div className="bg-gray-700 p-6">
         <div className="container mx-auto py-4 flex justify-between items-center">
