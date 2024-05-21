@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import logo from '../assets/nustLogo.png'; // Make sure to add a logo if you have one
 
 const Signup = () => {
   const [cmsId, setCmsId] = useState('');
@@ -65,29 +66,32 @@ const Signup = () => {
   };
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-gray-200">
-      <div className="bg-white p-8 rounded-lg shadow-md">
-        <h2 className="text-2xl font-semibold mb-4 text-center">Sign Up</h2>
-        {error && <div className="text-red-500 mb-4">{error}</div>}
+    <div className="min-h-screen flex justify-center items-center bg-gradient-to-r from-green-500 to-teal-600">
+      <div className="bg-white p-10 rounded-lg shadow-md w-full max-w-md">
+        <div className="flex justify-center mb-6">
+          <img src={logo} alt="Logo" className="h-12" />
+        </div>
+        <h2 className="text-3xl font-semibold mb-4 text-center text-gray-800">Create your Publisher Account</h2>
+        {error && <div className="text-red-500 mb-4 text-center">{error}</div>}
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label htmlFor="cmsId" className="block text-sm font-medium text-gray-700">CMS ID (11 digits):</label>
-            <input type="text" id="cmsId" name="cmsId" value={cmsId} onChange={(e) => setCmsId(e.target.value)} className="mt-1 p-2 border border-gray-300 rounded-md w-full" />
+            <input type="text" id="cmsId" name="cmsId" value={cmsId} onChange={(e) => setCmsId(e.target.value)} className="mt-1 p-3 border border-gray-300 rounded-md w-full" />
           </div>
           <div className="mb-4">
             <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password:</label>
-            <input type="password" id="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} className="mt-1 p-2 border border-gray-300 rounded-md w-full" />
+            <input type="password" id="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} className="mt-1 p-3 border border-gray-300 rounded-md w-full" />
           </div>
           <div className="mb-4">
             <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">Confirm Password:</label>
-            <input type="password" id="confirmPassword" name="confirmPassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} className="mt-1 p-2 border border-gray-300 rounded-md w-full" />
+            <input type="password" id="confirmPassword" name="confirmPassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} className="mt-1 p-3 border border-gray-300 rounded-md w-full" />
           </div>
-          <div className="grid justify-items-center">
-            <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300 ease-in-out">Sign Up</button>
+          <div className="flex justify-center">
+            <button type="submit" className="bg-green-500 text-white py-2 px-6 rounded-md hover:bg-green-600 transition duration-300 ease-in-out font-bold">Sign Up</button>
           </div>
         </form>
-        <div className="mt-4 text-gray-700">
-          Already have an account? <Link to="/login" className="text-blue-500 hover:underline">Login</Link>
+        <div className="mt-6 text-center text-gray-700">
+          Already have an account? <Link to="/login" className="text-green-500 hover:underline">Login</Link>
         </div>
       </div>
       {showPopup && (
