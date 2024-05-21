@@ -47,7 +47,7 @@ const PapersList = () => {
                 <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-4">
                   <div>
                     <h3 className="text-xl font-semibold text-gray-800">{paper.title}</h3>
-                    <p className="text-sm text-gray-600">{new Date(paper.published_date).toLocaleDateString()}</p>
+                    <p className="text-sm text-gray-600">Published on: {new Date(paper.published_date).toLocaleDateString()}</p>
                   </div>
                   <button
                     className="mt-4 sm:mt-0 bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300 ease-in-out"
