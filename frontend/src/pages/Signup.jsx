@@ -1,31 +1,67 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Signup = () => {
   const [cmsId, setCmsId] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
+  const [name, setName] = useState('');
+  const [showPopup, setShowPopup] = useState(false);
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Perform validation
     if (!cmsId || !password || !confirmPassword) {
       setError('Please fill in all fields');
       return;
     }
     if (!/^\d{11}$/.test(cmsId)) {
-      setError('CMS ID must be 11-digit long');
+      setError('CMS ID must be 11 digits long');
       return;
     }
     if (password !== confirmPassword) {
       setError('Passwords do not match');
       return;
     }
-    // If validation passes, proceed with signup logic
-    // Call API to fetch additional details based on CMS ID
-    // Upon successful signup, redirect to dashboard or login page
-    // Implement this logic as per your backend requirements
+    try {
+      const response = await fetch(`http://localhost:5173/api/v1/fetchData?cmsId=${cmsId}`);
+      const jsonData = await response.json();
+      const facultyDataArray = jsonData.ric_expert_portal_faculty_json_data;
+      const faculty = facultyDataArray[0];
+      const fetchedName = faculty.name;
+      if (!fetchedName) {
+        setError('Failed to fetch user details');
+        return;
+      }
+      setName(fetchedName);
+      setShowPopup(true);
+    } catch (error) {
+      console.error(error);
+      setError('Fetch Error');
+    }
+  };
+
+  const confirmSignup = async () => {
+    try {
+      const response = await fetch('http://localhost:5173/api/v1/users/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ cmsId, password }),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        setShowPopup(false);
+        navigate('/login');
+      } else {
+        setError(data.message);
+      }
+    } catch (error) {
+      console.error(error);
+      setError('Signup Error');
+    }
   };
 
   return (
@@ -39,14 +75,14 @@ const Signup = () => {
             <input type="text" id="cmsId" name="cmsId" value={cmsId} onChange={(e) => setCmsId(e.target.value)} className="mt-1 p-2 border border-gray-300 rounded-md w-full" />
           </div>
           <div className="mb-4">
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password: </label>
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password:</label>
             <input type="password" id="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} className="mt-1 p-2 border border-gray-300 rounded-md w-full" />
           </div>
           <div className="mb-4">
-            <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">Confirm Password: </label>
+            <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">Confirm Password:</label>
             <input type="password" id="confirmPassword" name="confirmPassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} className="mt-1 p-2 border border-gray-300 rounded-md w-full" />
           </div>
-          <div className='grid justify-items-center'>
+          <div className="grid justify-items-center">
             <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300 ease-in-out">Sign Up</button>
           </div>
         </form>
@@ -54,8 +90,20 @@ const Signup = () => {
           Already have an account? <Link to="/login" className="text-blue-500 hover:underline">Login</Link>
         </div>
       </div>
+      {showPopup && (
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
+          <div className="bg-white p-8 rounded-lg shadow-md">
+            <h2 className="text-xl font-semibold mb-4">Dear {name},</h2>
+            <p className="text-gray-700">Is this your account?</p>
+            <div className="flex space-x-4 mt-4">
+              <button onClick={confirmSignup} className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300 ease-in-out">Yes</button>
+              <button onClick={() => setShowPopup(false)} className="bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600 transition duration-300 ease-in-out">No</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default Signup
+export default Signup;
