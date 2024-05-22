@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const pool = require('../db');
 const authenticateToken = require('../authMiddleware');
-const { getName, getImage } = require('../api/apiHandles');
+const { getName, getImage } = require('../getHandlers/apiHandles');
 
 const router = express.Router();
 
